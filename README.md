@@ -1,6 +1,6 @@
 # Prueba Técnica - Página Web en React
 
-Este repositorio contiene el código fuente de una página web desarrollada en React como parte de una prueba técnica en donde se busca recreear una página web funcional que consuma datos de la API JSONPlaceholder la cual sea responsive.
+Este repositorio contiene el código fuente de una página web desarrollada en React como parte de una prueba técnica en donde se busca recreear una página web funcional (https://www.figma.com/file/dqvNr7pcrVIXPlQoaFawUX/Prueba-t%C3%A9cnica?type=design&node-id=0%3A1&mode=design&t=DUzQyHj4AhcQ1huw-1)  que consuma datos de la API JSONPlaceholder en donde se cumpla con diseño responsive.
 
 ## Clonar el Repositorio
 
