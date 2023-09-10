@@ -3,6 +3,46 @@ import { Form, Input, Button, Checkbox, Row, Col, Pagination } from 'antd';
 import "./style.css"
 // importacion de imagenes
 import ofice from '../Images/ofice.jpg';
+import a from '../Images/a.jpg';
+import b from '../Images/b.jpg';
+import c from '../Images/c.jpg';
+import d from '../Images/d.jpg';
+import e from '../Images/e.jpg';
+import f from '../Images/f.jpg';
+
+const dataAdd = [
+    {
+        url: a,
+        thumbnailUrl: "../Images/a.jpg",
+        title: 'Bill Walsh leadership lessons',
+    },
+    {
+        url: b,
+        thumbnailUrl: "../Images/b.jpg",
+        title: 'PM mental models',
+    },
+    {
+        url: c,
+        thumbnailUrl: "../Images/c.jpg",
+        title: 'What is Wireframing?',
+    },
+    {
+        url: d,
+        thumbnailUrl: "../Images/d.jpg",
+        title: 'How collaboration makes us better designers',
+    },
+    {
+        url: e,
+        thumbnailUrl: "../Images/e.jpg",
+        title: 'Our top 10 Javascript frameworks to use',
+    },
+    {
+        url: f,
+        thumbnailUrl: "../Images/f.jpg",
+        title: 'Podcast: Creating a better CX Community',
+    },
+];
+
 
 export default function Home() {
     const [usuario, setUsuario] = useState('');
@@ -19,15 +59,17 @@ export default function Home() {
         const response = await fetch('https://jsonplaceholder.typicode.com/photos');
         const photos = await response.json();
 
+        const updatedPhotos = [...dataAdd, ...photos];
+
         // Calcula el índice de inicio y fin para las imágenes según la página actual.
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
 
         // Actualiza el estado de las imágenes recientes basado en la página actual.
-        setDataSize(photos.length)
-        setDataAll(photos.slice(startIndex, endIndex));
+        setDataSize(updatedPhotos.length)
+        setDataAll(updatedPhotos.slice(startIndex, endIndex));
         console.log(dataAll);
-        setDataRecet(photos.slice(0, 2));
+        setDataRecet(updatedPhotos.slice(0, 2));
     }
 
     const handlePageChange = (page) => {
