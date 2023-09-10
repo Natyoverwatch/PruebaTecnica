@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
+import { Form, Input, Button, Checkbox, Row, Col, Pagination } from 'antd';
 import "./style.css"
 // importacion de imagenes
 import ofice from '../Images/ofice.jpg';
@@ -7,23 +7,57 @@ import ofice from '../Images/ofice.jpg';
 export default function Home() {
     const [usuario, setUsuario] = useState('');
     const [contraseña, setContraseña] = useState('');
+    const [dataSize, setDataSize] = useState();
     const [dataRecent, setDataRecet] = useState([]);
     const [dataAll, setDataAll] = useState([]); // solo se van a guardar los primeros 6 elementos de la api
+
+    //para la paginacion y contenido de bloques por paginacion
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
 
     const fetchApi = async () => {
         const response = await fetch('https://jsonplaceholder.typicode.com/photos');
         const photos = await response.json();
+
+        // Calcula el índice de inicio y fin para las imágenes según la página actual.
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        // Actualiza el estado de las imágenes recientes basado en la página actual.
+        setDataSize(photos.length)
+        setDataAll(photos.slice(startIndex, endIndex));
+        console.log(dataAll);
         setDataRecet(photos.slice(0, 2));
-        setDataAll(photos.slice(2, 8));
     }
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        // Llama a la función fetchApi para cargar las imágenes correspondientes a la página seleccionada.
+    };
+
     useEffect(() => {
         fetchApi()
 
     }, [0]);
 
+    useEffect(() => {
+        fetchApi()
+    }, [currentPage]);
+
     const onChange = (e) => {
         console.log(e);
     };
+
+    const itemRender = (_, type, originalElement) => {
+        if (type === 'prev') {
+            return <a>Previous</a>;
+        }
+        if (type === 'next') {
+            return <a>Next</a>;
+        }
+        return originalElement;
+    };
+
     return (
         <div className='containerhome'>
             <div className='header'>
@@ -31,7 +65,7 @@ export default function Home() {
                 <h1 >Stories and interviews</h1>
                 <p className='p2'>Subscribe to learn about new product features, the latest in technology, solutions, and updates.</p>
             </div>
-            <div >
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Form
                     name="basic"
                     layout="inline"
@@ -83,20 +117,19 @@ export default function Home() {
                                 </div>
                             </div>
                         </Row>
-
                     </Col>
                     <Col xs={24} lg={12}>
-                        <Row>
+                        <Row className='recent'>
                             {dataRecent.map((read, index) => (
                                 <Col
                                     xs={24}
                                     lg={24}
                                     key={index}>
-                                    <Row style={{ margin: '1em 0 1em 2em' }}>
+                                    <Row className='container-recent'>
                                         <Col xs={24} lg={12}>
                                             <img src={read.url} alt={read.thumbnailUrl} className='image-recent'></img>
                                         </Col>
-                                        <Col xs={24} lg={12} style={{ paddingLeft: '3em' }}>
+                                        <Col xs={24} lg={12} className='text-recent'>
                                             <p className='p-recent-blog-author'>Phoenix Baker • 19 Jan 2022</p>
                                             <h3 className='h3-recent-blog-title'>{read.title}</h3>
                                             <p className='p-recent-blog-paragraph'>Lorem ipsum dolor sit amet. Sed numquam consequatur sed accusantium neque ea...</p>
@@ -117,7 +150,7 @@ export default function Home() {
                 </Row>
             </div>
             <div className="all-blogs">
-                <h2> Recent blog posts</h2>
+                <h2> All blog posts</h2>
                 <Row>
                     <Col xs={24} lg={24}>
                         <Row>
@@ -126,13 +159,13 @@ export default function Home() {
                                     xs={24}
                                     lg={8}
                                     key={index}>
-                                    <Row style={{ margin: '1em 0 1em 2em' }}>
+                                    <Row className='container-recent' >
                                         <Col xs={24} lg={24}>
                                             <Row style={{ display: 'flex', justifyContent: 'center' }}>
                                                 <img src={read.url} alt={read.thumbnailUrl} className='image-all'></img>
                                             </Row>
                                             <Row xs={24} lg={24}>
-                                                <p className='p-recent-blog-author'>Alec Whitten • 17 Jan 2022</p>
+                                                <p className='p-all-blog-author'>Alec Whitten • 17 Jan 2022</p>
                                                 <h3 className='h3-recent-blog-title'>{read.title}</h3>
                                                 <p className='p-recent-blog-paragraph'>Lorem ipsum dolor sit amet. Sed numquam consequatur sed accusantium neque ea...</p>
                                                 <div className='items'>
@@ -149,6 +182,16 @@ export default function Home() {
                                 </Col>
                             ))}
                         </Row>
+
+                        <Pagination
+                            current={currentPage}
+                            total={dataSize}
+                            pageSize={itemsPerPage}
+                            onChange={handlePageChange}
+                            itemRender={itemRender}
+                            showSizeChanger={false}
+                            className='pagination' // Añade estilos según tus preferencias.
+                        />
                     </Col>
                 </Row>
             </div>
