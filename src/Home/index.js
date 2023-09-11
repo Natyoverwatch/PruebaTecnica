@@ -9,6 +9,8 @@ import c from '../Images/c.jpg';
 import d from '../Images/d.jpg';
 import e from '../Images/e.jpg';
 import f from '../Images/f.jpg';
+//importacion de los iconos
+import { FiArrowUpRight } from "react-icons/fi";
 
 const dataAdd = [
     {
@@ -144,8 +146,11 @@ export default function Home() {
                             <img src={ofice} className='image-1'></img>
                         </Row>
                         <Row xs={24} lg={24}>
-                            <p className='p-recent-blog-author' style={{ width: '100%' }}>Olivia Rhye • 20 Jan 2022</p>
-                            <h3 className='h3-recent-blog-title'>UX review presentations</h3>
+                            <p className='p-all-blog-author' style={{ width: '100%', marginBlockStart: '1em', marginBlockEnd: '1em' }}>Olivia Rhye • 20 Jan 2022</p>
+                            <div style={{ width: '100em', display: 'flex', justifyContent: 'space-between' }}>
+                                <h3 className='h3-all-blog-title'>UX review presentations</h3>
+                                <FiArrowUpRight size={24} />
+                            </div>
                             <p className='p-recent-blog-paragraph'>How do you create compelling presentations that wow your colleagues and impress your managers?</p>
                             <div className='items'>
                                 <div className='button-item1'>
@@ -206,9 +211,12 @@ export default function Home() {
                                             <Row style={{ display: 'flex', justifyContent: 'center' }}>
                                                 <img src={read.url} alt={read.thumbnailUrl} className='image-all'></img>
                                             </Row>
-                                            <Row xs={24} lg={24}>
+                                            <Row xs={24} lg={24} style={{ marginBottom: '30px' }}>
                                                 <p className='p-all-blog-author'>Alec Whitten • 17 Jan 2022</p>
-                                                <h3 className='h3-recent-blog-title'>{read.title}</h3>
+                                                <div style={{ width: '100em', display: 'flex', justifyContent: 'space-between' }}>
+                                                    <h3 className='h3-all-blog-title'>{read.title}</h3>
+                                                    <FiArrowUpRight size={24} />
+                                                </div>
                                                 <p className='p-recent-blog-paragraph'>Lorem ipsum dolor sit amet. Sed numquam consequatur sed accusantium neque ea...</p>
                                                 <div className='items'>
                                                     <div className='button-item1'>

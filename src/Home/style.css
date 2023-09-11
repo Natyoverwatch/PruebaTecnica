@@ -202,6 +202,7 @@ h2 {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     width: 100%;
+
 }
 
 .h3-recent-blog-title {
@@ -290,6 +291,16 @@ h2 {
         height: 200px;
         object-fit: cover;
     }
+}
+
+.h3-all-blog-title {
+    color: #101828;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .pagination {
